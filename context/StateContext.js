@@ -13,6 +13,20 @@ export const StateContext = ({ children }) => {
     let foundProduct;
     let index;
 
+    useEffect(() => {
+        if (localStorage.getItem('cartProducts') !== null) {
+            setCartItems(JSON.parse(localStorage.getItem('cartProducts')));
+            setTotalPrice(JSON.parse(localStorage.getItem('total')));
+            setTotalQuantities(JSON.parse(localStorage.getItem('quantities')));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('total', totalPrice);
+        localStorage.setItem('quantities', totalQuantities);
+    }, [totalPrice]);
+
+
     const onAdd = (product, quantity) => {
         const checkProductInCart = cartItems.find((item) => item._id === product._id);
         setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
@@ -25,9 +39,11 @@ export const StateContext = ({ children }) => {
             });
 
             setCartItems(updatedCartItems);
+            localStorage.setItem('cartProducts', JSON.stringify(updatedCartItems));
         } else {
             product.quantity = quantity;
             setCartItems([...cartItems, { ...product }]);
+            localStorage.setItem('cartProducts', JSON.stringify([...cartItems, { ...product }]));
         }
         toast.success(`${qty} ${product.name} added to the cart.`);
     };
