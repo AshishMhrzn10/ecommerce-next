@@ -3,8 +3,10 @@ import { client, urlFor } from '../../lib/client';
 import { AiOutlinePlus, AiOutlineMinus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Product } from '../../components';
 import { useStateContext } from '../../context/StateContext';
+import { useSession } from "next-auth/react";
 
 const ProductDetails = ({ product, products }) => {
+    const { data: session } = useSession();
     const { image, name, details, price } = product;
     const [index, setIndex] = useState(0);
 
@@ -54,10 +56,17 @@ const ProductDetails = ({ product, products }) => {
                         </p>
                     </div>
 
-                    <div className='buttons'>
-                        <button type="button" className='add-to-cart' onClick={() => onAdd(product, qty)}>Add to Cart</button>
-                        <button type="button" className='buy-now' onClick=''>Buy Now</button>
-                    </div>
+                    {session ? (
+                        <div className='buttons'>
+                            <button type="button" className='add-to-cart' onClick={() => onAdd(product, qty)}>Add to Cart</button>
+                            <button type="button" className='buy-now' onClick=''>Buy Now</button>
+                        </div>
+                    ) :
+                        <>
+                            <br />
+                            <h3 style={{ color: 'red' }}>Log in to add to cart</h3>
+                        </>
+                    }
                 </div>
             </div>
 
