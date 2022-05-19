@@ -14,8 +14,8 @@ const Navbar = () => {
                 <Link href='/'>Electra Store</Link>
             </p>
             {session ? (
-                <h2>Welcome To Electra Store</h2>
-            ) : <p style={{ color: 'red' }}>Please sign in to shop</p>}
+                <h2 className='mob-head'>Welcome To Electra Store</h2>
+            ) : <p style={{ color: 'red' }} className='mob-head'>Please sign in to shop</p>}
 
             <div>
                 {session ? (
@@ -28,7 +28,7 @@ const Navbar = () => {
                     </>
                 ) :
                     <button className='button-1' onClick={() => signIn()}>
-                        Sign In
+                        SignIn
                     </button>
                 }
             </div>

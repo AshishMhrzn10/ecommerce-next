@@ -80,7 +80,6 @@ span.text-red {
 .logo {
   color: gray;
   font-size: 18px;
-
 }
 
 .button-1 {
@@ -748,6 +747,11 @@ span.text-red {
 }
 
 @media screen and (max-width:800px) {
+  .mob-head {
+    font-size: 16px;
+    margin-left: 10px;
+  }
+
   .hero-banner-container {
     height: 560px;
   }
